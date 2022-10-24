@@ -13,8 +13,8 @@ exista(E, [H|T]) :- E\= H, exista(E,T).
 
 % cpylst(A:Lista,R:Lista)
 % (i,i) (i,o)
-% A = lista
-% R = copie lista (neordonat)
+% A - lista
+% R - copie lista (neordonat)
 cpylst([],[]).
 cpylst(H, H). % caz separat un singur element?
 cpylst([H|T],R) :-
@@ -24,7 +24,7 @@ cpylst([H|T],R) :-
 
 % emultime(L:Lista)
 % (i)
-% L = Lista de verificat daca e multime
+% L - Lista de verificat daca e multime
 emultime([]).
 emultime([H|T]) :- not(exista(H,T)), emultime(T).
 
@@ -38,12 +38,19 @@ goals_emultime() :-
 
 % adaugaSf(E:Element, L:Lista, R:Lista)
 % (i,i,i), (i,i,o)
+% E - elementul de adaugat
+% L - lista initiala
+% R - lista L cu elementul E la final
 adaugaSf(E,[],[E]).
 adaugaSf(E,[H|T],R) :- adaugaSf(E,T,R1), R = [H|R1].
 
 % eliminah(E:Element, L:Lista, C:Lista, N:Integer, R:Lista)
 % (i,i,i,i,i), (i,i,o,i,o)
-
+% E - elementul de eliminat
+% L - lista din care eliminam
+% C - variabila colectoare
+% N - numarul de elimnari ramase
+% R - lista rezultata prin eliminarea a N aparitii ale lui E
 eliminah(_,[],C,_,R) :- R=C.
 
 eliminah(_, [H|T], C, 0, R) :-
@@ -60,6 +67,9 @@ eliminah(E, [H|T], C, N, R) :- N>0,
 
 % elimina(E:Element, L:Lista, R:Lista)
 % (i,i,i), (i,i,o)
+% E - elementul de eliminat din lista
+% L - lista initiala
+% R - lista rezultata prin eliminarea a 3 aparitii ale lui E din L
 elimina(E,L,R) :- eliminah(E,L,[],3,R).
 
 goals_elimina() :-
