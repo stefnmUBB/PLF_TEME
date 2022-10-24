@@ -61,7 +61,7 @@ eliminah(E, [E|T], C, N, R) :- N>0,
     N1 is N-1,
     eliminah(E,T,C,N1,R).
 
-eliminah(E, [H|T], C, N, R) :- N>0,
+eliminah(E, [H|T], C, N, R) :- N>0, E \= H,
     adaugaSf(H,C,C1),
     eliminah(E,T,C1,N,R).
 
