@@ -4,10 +4,10 @@
 % N = numarul ai carui divizori ii aflam
 % R = lista divizorilor lui N
 % D = contor divizor D>=2
-listdiv(_, [], 0).
-listdiv(1, [], _).
-listdiv(0, [], _).
-listdiv(N, [], N).
+listdiv(_, [], 0):-!.
+listdiv(1, [], _):-!.
+listdiv(0, [], _):-!.
+listdiv(N, [], D):- D>=N, !.
 listdiv(N, R, D) :-
     N mod D =:= 0,
     D1 is D+1,
@@ -39,7 +39,7 @@ addiv([H|T],R) :-
     addiv(T, RT),
     listdiv(H, RD, 2),
     conct(RD, RT, R1),
-    R = [H|R1].
+    R=[H|R1].
 
 % addivet(L,R)
 % (i,o), (i,i)
@@ -56,3 +56,15 @@ addivet([H|T],[H1|R]) :-
     addiv(H,H1),
     addivet(T,R).
 
+testaddiv() :-
+    addiv([],[]),
+    addiv([1,2,3],[1,2,3]),
+    addiv([9,6,2],[9,3,6,2,3,2]),
+    addiv([34,16,10],[34,2,17,16,2,4,8,10,2,5]),
+    not(addiv([15],[3,5])).
+
+testaddivet():-
+    addivet([],[]),
+    addivet([1,2,3],[1,2,3]),
+    addivet([1,[2,5,7],4,5,[1,4],  3,2,[6,2,1],    4,[7,2,8,1],    2],
+            [1,[2,5,7],4,5,[1,4,2],3,2,[6,2,3,2,1],4,[7,2,8,2,4,1],2]).
